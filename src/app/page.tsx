@@ -90,7 +90,7 @@ export default function CalculatorApp() {
   // Load history & theme from localStorage & set year safely
   useEffect(() => {
     const year = new Date().getFullYear();
-    setCurrentYear(year);
+    setCurrentYear((prev) => (prev !== year ? year : prev));
     const savedHistory = localStorage.getItem('calc_history');
     if (savedHistory) {
       try {
