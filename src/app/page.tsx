@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'vail'; // Wait, React hooks from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   History, 
   Trash2, 
@@ -14,8 +14,6 @@ import {
   Copy, 
   Check, 
   RotateCcw,
-  ChevronLeft,
-  ChevronRight,
   Calculator as CalcIcon,
   Atom,
   Info
@@ -402,7 +400,6 @@ export default function CalculatorApp() {
   // Keyboard Event Listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger if modal or history open and typing elsewhere, etc.
       if (e.key >= '0' && e.key <= '9') {
         inputDigit(e.key);
       } else if (e.key === '.') {
