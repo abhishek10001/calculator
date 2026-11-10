@@ -49,7 +49,7 @@ export default function CalculatorApp() {
   const [copied, setCopied] = useState<boolean>(false);
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
   const [newResultFlash, setNewResultFlash] = useState<boolean>(false);
-  const [currentYear, setCurrentYear] = useState<number>(2025);
+  const [currentYear] = useState<number>(() => new Date().getFullYear());
 
   // Flags
   const [waitingForOperand, setWaitingForOperand] = useState<boolean>(false);
@@ -87,9 +87,8 @@ export default function CalculatorApp() {
     }
   }, [soundEnabled]);
 
-  // Load history & theme from localStorage & set year safely
+  // Load history & theme from localStorage on mount
   useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
     const savedHistory = localStorage.getItem('calc_history');
     if (savedHistory) {
       try {
@@ -244,8 +243,8 @@ export default function CalculatorApp() {
     const inputValue = parseFloat(display);
     const parts = equation.trim().split(' ');
     
-    let leftVal = parseFloat(parts[0]);
-    let op = parts[1] || '+';
+    const leftVal = parseFloat(parts[0]);
+    const op = parts[1] || '+';
     let rightVal = inputValue;
 
     if (waitingForOperand && parts.length >= 3) {
@@ -497,7 +496,7 @@ export default function CalculatorApp() {
             <h1 className="text-xl font-bold tracking-tight flex items-center gap-1.5">
               NexusCalc
             </h1>
-            <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator &amp; Scientific Studio</p>
+            <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js Calculator &amp; Scientific Studio</p>
           </div>
         </div>
 
@@ -784,7 +783,7 @@ export default function CalculatorApp() {
               <div>
                 <h4 className="font-bold text-amber-400 mb-1.5 uppercase tracking-wider text-[10px]">Features</h4>
                 <p className="leading-relaxed opacity-80">
-                  NexusCalc Pro features a fully integrated scientific mode, angle mode toggle (DEG/RAD), audio feedback clicks, persistent history drawer, and customizable glassmorphism themes.
+                  NexusCalc features a fully integrated scientific mode, angle mode toggle (DEG/RAD), audio feedback clicks, persistent history drawer, and customizable glassmorphism themes.
                 </p>
               </div>
             </div>
@@ -810,10 +809,10 @@ export default function CalculatorApp() {
               <div className="p-1.5 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-500 text-white shadow-md shadow-rose-500/20">
                 <CalcIcon className="w-4 h-4" />
               </div>
-              <span className="font-bold text-sm tracking-tight">NexusCalc Pro</span>
+              <span className="font-bold text-sm tracking-tight">NexusCalc</span>
             </div>
             <p className="opacity-60 text-[11px] leading-relaxed">
-              High-performance scientific calculator built with Next.js 15, React 19, and Tailwind CSS. Precision math in your browser.
+              High-performance scientific calculator built with Next.js, React, and Tailwind CSS. Precision math in your browser.
             </p>
             <div className="flex items-center gap-3 pt-1">
               <a 
@@ -871,9 +870,9 @@ export default function CalculatorApp() {
               <Cpu className="w-3.5 h-3.5" /> Tech Stack
             </h4>
             <ul className="space-y-1.5 opacity-70 text-[11px]">
-              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Next.js 15 App Router</li>
-              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> React 19 &amp; TypeScript</li>
-              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Tailwind CSS v4</li>
+              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Next.js App Router</li>
+              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> React &amp; TypeScript</li>
+              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Tailwind CSS</li>
               <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Web Audio API &amp; Lucide Icons</li>
             </ul>
           </div>
@@ -902,10 +901,10 @@ export default function CalculatorApp() {
 
         {/* Bottom copyright & credits bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] opacity-60">
-          <p>© {currentYear} NexusCalc Pro. All rights reserved.</p>
+          <p>© {currentYear} NexusCalc. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500 inline" /> for Next.js 15
+              Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500 inline" /> for Next.js
             </span>
             <span>•</span>
             <span className="font-mono">v2.4.0-stable</span>
