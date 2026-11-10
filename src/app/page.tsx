@@ -104,6 +104,24 @@ export default function CalculatorApp() {
     }
   }, [soundEnabled]);
 
+  // Load history & theme from localStorage & set year safely
+  useEffect(() => {
+    const year = new Date().getFullYear();
+    setCurrentYear((prev) => (prev !== year ? year : prev));
+    const savedHistory = localStorage.getItem('calc_history');
+    if (savedHistory) {
+      try {
+        setHistory(JSON.parse(savedHistory));
+      } catch {
+        // ignore
+      }
+    }
+    const savedTheme = localStorage.getItem('calc_theme') as ThemeMode;
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
   // Save history
   useEffect(() => {
     localStorage.setItem('calc_history', JSON.stringify(history));
@@ -905,10 +923,8 @@ export default function CalculatorApp() {
           <p>© {currentYear} NexusCalc Pro. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500 inline" /> for Next.js 15
+              crafted by Jaden with <Heart className="w-3 h-3 text-rose-500 fill-rose-500 inline" />
             </span>
-            <span>•</span>
-            <span className="font-mono">v2.4.0-stable</span>
           </div>
         </div>
       </footer>
