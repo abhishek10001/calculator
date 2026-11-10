@@ -38,18 +38,35 @@ export default function CalculatorApp() {
   const [display, setDisplay] = useState<string>('0');
   const [equation, setEquation] = useState<string>('');
   const [memory, setMemory] = useState<number>(0);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
   
   // UI & Settings State
+  const [history, setHistory] = useState<HistoryItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+    const saved = localStorage.getItem('calc_history');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        // ignore
+      }
+    }
+    return [];
+  });
+
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    if (typeof window === 'undefined') return 'dark';
+    const saved = localStorage.getItem('calc_theme') as ThemeMode;
+    return saved || 'dark';
+  });
+
   const [isScientific, setIsScientific] = useState<boolean>(false);
   const [angleMode, setAngleMode] = useState<AngleMode>('DEG');
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
-  const [theme, setTheme] = useState<ThemeMode>('dark');
   const [historyOpen, setHistoryOpen] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
   const [newResultFlash, setNewResultFlash] = useState<boolean>(false);
-  const [currentYear, setCurrentYear] = useState<number>(2025);
+  const [currentYear] = useState<number>(() => new Date().getFullYear());
 
   // Flags
   const [waitingForOperand, setWaitingForOperand] = useState<boolean>(false);
@@ -496,7 +513,7 @@ export default function CalculatorApp() {
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight flex items-center gap-1.5">
-              NexusCalc <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium">Pro</span>
+              NexusCalc
             </h1>
             <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator &amp; Scientific Studio</p>
           </div>
