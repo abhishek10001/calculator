@@ -38,13 +38,27 @@ export default function CalculatorApp() {
   const [display, setDisplay] = useState<string>('0');
   const [equation, setEquation] = useState<string>('');
   const [memory, setMemory] = useState<number>(0);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [history, setHistory] = useState<HistoryItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+    const savedHistory = localStorage.getItem('calc_history');
+    if (savedHistory) {
+      try {
+        return JSON.parse(savedHistory);
+      } catch {
+        // ignore
+      }
+    }
+    return [];
+  });
   
   // UI & Settings State
   const [isScientific, setIsScientific] = useState<boolean>(false);
   const [angleMode, setAngleMode] = useState<AngleMode>('DEG');
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
-  const [theme, setTheme] = useState<ThemeMode>('dark');
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    if (typeof window === 'undefined') return 'dark';
+    return (localStorage.getItem('calc_theme') as ThemeMode) || 'dark';
+  });
   const [historyOpen, setHistoryOpen] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
@@ -86,22 +100,6 @@ export default function CalculatorApp() {
       // Audio context might fail in restricted environments
     }
   }, [soundEnabled]);
-
-  // Load history & theme from localStorage on mount
-  useEffect(() => {
-    const savedHistory = localStorage.getItem('calc_history');
-    if (savedHistory) {
-      try {
-        setHistory(JSON.parse(savedHistory));
-      } catch {
-        // ignore
-      }
-    }
-    const savedTheme = localStorage.getItem('calc_theme') as ThemeMode;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
 
   // Save history
   useEffect(() => {
