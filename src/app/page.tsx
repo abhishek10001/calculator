@@ -89,7 +89,8 @@ export default function CalculatorApp() {
 
   // Load history & theme from localStorage & set year safely
   useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
+    const year = new Date().getFullYear();
+    setCurrentYear(year);
     const savedHistory = localStorage.getItem('calc_history');
     if (savedHistory) {
       try {
@@ -244,8 +245,8 @@ export default function CalculatorApp() {
     const inputValue = parseFloat(display);
     const parts = equation.trim().split(' ');
     
-    let leftVal = parseFloat(parts[0]);
-    let op = parts[1] || '+';
+    const leftVal = parseFloat(parts[0]);
+    const op = parts[1] || '+';
     let rightVal = inputValue;
 
     if (waitingForOperand && parts.length >= 3) {
