@@ -49,7 +49,7 @@ export default function CalculatorApp() {
   const [copied, setCopied] = useState<boolean>(false);
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
   const [newResultFlash, setNewResultFlash] = useState<boolean>(false);
-  const [currentYear, setCurrentYear] = useState<number>(2025);
+  const [currentYear] = useState<number>(() => new Date().getFullYear());
 
   // Flags
   const [waitingForOperand, setWaitingForOperand] = useState<boolean>(false);
@@ -87,9 +87,8 @@ export default function CalculatorApp() {
     }
   }, [soundEnabled]);
 
-  // Load history & theme from localStorage & set year safely
+  // Load history & theme from localStorage safely
   useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
     const savedHistory = localStorage.getItem('calc_history');
     if (savedHistory) {
       try {
@@ -244,8 +243,8 @@ export default function CalculatorApp() {
     const inputValue = parseFloat(display);
     const parts = equation.trim().split(' ');
     
-    let leftVal = parseFloat(parts[0]);
-    let op = parts[1] || '+';
+    const leftVal = parseFloat(parts[0]);
+    const op = parts[1] || '+';
     let rightVal = inputValue;
 
     if (waitingForOperand && parts.length >= 3) {
