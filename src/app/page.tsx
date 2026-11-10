@@ -38,13 +38,31 @@ export default function CalculatorApp() {
   const [display, setDisplay] = useState<string>('0');
   const [equation, setEquation] = useState<string>('');
   const [memory, setMemory] = useState<number>(0);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [history, setHistory] = useState<HistoryItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('calc_history');
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // ignore
+    }
+    return [];
+  });
   
   // UI & Settings State
   const [isScientific, setIsScientific] = useState<boolean>(false);
   const [angleMode, setAngleMode] = useState<AngleMode>('DEG');
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
-  const [theme, setTheme] = useState<ThemeMode>('dark');
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    if (typeof window === 'undefined') return 'dark';
+    try {
+      const saved = localStorage.getItem('calc_theme');
+      if (saved) return saved as ThemeMode;
+    } catch {
+      // ignore
+    }
+    return 'dark';
+  });
   const [historyOpen, setHistoryOpen] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
@@ -87,30 +105,22 @@ export default function CalculatorApp() {
     }
   }, [soundEnabled]);
 
-  // Load history & theme from localStorage safely
-  useEffect(() => {
-    const savedHistory = localStorage.getItem('calc_history');
-    if (savedHistory) {
-      try {
-        setHistory(JSON.parse(savedHistory));
-      } catch {
-        // ignore
-      }
-    }
-    const savedTheme = localStorage.getItem('calc_theme') as ThemeMode;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
-
   // Save history
   useEffect(() => {
-    localStorage.setItem('calc_history', JSON.stringify(history));
+    try {
+      localStorage.setItem('calc_history', JSON.stringify(history));
+    } catch {
+      // ignore
+    }
   }, [history]);
 
   // Save theme
   useEffect(() => {
-    localStorage.setItem('calc_theme', theme);
+    try {
+      localStorage.setItem('calc_theme', theme);
+    } catch {
+      // ignore
+    }
   }, [theme]);
 
   // Handle number input
@@ -783,7 +793,7 @@ export default function CalculatorApp() {
               <div>
                 <h4 className="font-bold text-amber-400 mb-1.5 uppercase tracking-wider text-[10px]">Features</h4>
                 <p className="leading-relaxed opacity-80">
-                  NexusCalc Pro features a fully integrated scientific mode, angle mode toggle (DEG/RAD), audio feedback clicks, persistent history drawer, and customizable glassmorphism themes.
+                  NexusCalc features a fully integrated scientific mode, angle mode toggle (DEG/RAD), audio feedback clicks, persistent history drawer, and customizable glassmorphism themes.
                 </p>
               </div>
             </div>
@@ -809,7 +819,7 @@ export default function CalculatorApp() {
               <div className="p-1.5 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-500 text-white shadow-md shadow-rose-500/20">
                 <CalcIcon className="w-4 h-4" />
               </div>
-              <span className="font-bold text-sm tracking-tight">NexusCalc Pro</span>
+              <span className="font-bold text-sm tracking-tight">NexusCalc</span>
             </div>
             <p className="opacity-60 text-[11px] leading-relaxed">
               High-performance scientific calculator built with Next.js 15, React 19, and Tailwind CSS. Precision math in your browser.
@@ -901,7 +911,7 @@ export default function CalculatorApp() {
 
         {/* Bottom copyright & credits bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] opacity-60">
-          <p>© {currentYear} NexusCalc Pro. All rights reserved.</p>
+          <p>© {currentYear} NexusCalc. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500 inline" /> for Next.js 15
