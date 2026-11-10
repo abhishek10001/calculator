@@ -470,12 +470,12 @@ export default function CalculatorApp() {
       {/* Top Header / Nav */}
       <header className="w-full max-w-5xl flex items-center justify-between mb-4 px-2 z-10">
         <div className="flex items-center gap-2.5">
-          <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-amber-500 to-rose-500 text-white shadow-lg shadow-rose-500/20">
+          <div className="p-2.5 rounded-full bg-gradient-to-tr from-amber-500 to-rose-500 text-white shadow-lg shadow-rose-500/20">
             <CalcIcon className="w-6 h-6 animate-pulse" />
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight flex items-center gap-1.5">
-              NexusCalc <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium">Pro</span>
+              NexusCalc <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium">Pro</span>
             </h1>
             <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator &amp; Scientific Studio</p>
           </div>
@@ -484,12 +484,12 @@ export default function CalculatorApp() {
         {/* Controls: Theme, Sound, History, Help */}
         <div className="flex items-center gap-2">
           {/* Theme selector (Dark & Light only) */}
-          <div className="flex bg-black/20 backdrop-blur-md rounded-xl p-1 border border-white/10">
+          <div className="flex bg-black/20 backdrop-blur-md rounded-full p-1 border border-white/10">
             {(['dark', 'light'] as ThemeMode[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setTheme(t)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold capitalize transition-all flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-full text-xs font-semibold capitalize transition-all flex items-center gap-1 ${
                   theme === t ? 'bg-white/25 shadow-sm text-white' : 'opacity-60 hover:opacity-100'
                 }`}
                 title={`Switch to ${t} theme`}
@@ -503,7 +503,7 @@ export default function CalculatorApp() {
           {/* Sound Toggle */}
           <button
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className="p-2.5 rounded-xl bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-sm"
+            className="p-2.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-sm"
             title={soundEnabled ? 'Mute sound' : 'Enable sound'}
           >
             {soundEnabled ? <Volume2 className="w-4 h-4 text-emerald-400" /> : <VolumeX className="w-4 h-4 opacity-50" />}
@@ -512,7 +512,7 @@ export default function CalculatorApp() {
           {/* Help Modal Toggle */}
           <button
             onClick={() => setHelpOpen(true)}
-            className="p-2.5 rounded-xl bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-sm hidden sm:block"
+            className="p-2.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-sm hidden sm:block"
             title="Keyboard shortcuts & Help"
           >
             <HelpCircle className="w-4 h-4" />
@@ -521,7 +521,7 @@ export default function CalculatorApp() {
           {/* History Drawer Toggle */}
           <button
             onClick={() => setHistoryOpen(!historyOpen)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-xs font-medium"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-xs font-medium"
           >
             <History className="w-4 h-4" />
             <span className="hidden md:inline">History</span>
@@ -545,7 +545,7 @@ export default function CalculatorApp() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setIsScientific(!isScientific)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all border ${
                   isScientific 
                     ? 'bg-amber-500/20 text-amber-400 border-amber-500/40 shadow-sm shadow-amber-500/10' 
                     : 'bg-white/5 opacity-70 hover:opacity-100 border-white/10'
@@ -556,7 +556,7 @@ export default function CalculatorApp() {
               </button>
 
               {memory !== 0 && (
-                <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold animate-pulse">
+                <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold animate-pulse">
                   <span>M: {memory}</span>
                   <button onClick={memoryClear} className="ml-1 hover:text-white font-bold">×</button>
                 </div>
@@ -565,10 +565,10 @@ export default function CalculatorApp() {
 
             {/* Angle Mode Toggle (DEG / RAD) */}
             {isScientific && (
-              <div className="flex bg-black/30 rounded-xl p-0.5 border border-white/10">
+              <div className="flex bg-black/30 rounded-full p-0.5 border border-white/10">
                 <button
                   onClick={() => setAngleMode('DEG')}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
                     angleMode === 'DEG' ? 'bg-amber-500 text-black shadow-sm' : 'opacity-60 hover:opacity-100'
                   }`}
                 >
@@ -576,7 +576,7 @@ export default function CalculatorApp() {
                 </button>
                 <button
                   onClick={() => setAngleMode('RAD')}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
                     angleMode === 'RAD' ? 'bg-amber-500 text-black shadow-sm' : 'opacity-60 hover:opacity-100'
                   }`}
                 >
@@ -592,7 +592,7 @@ export default function CalculatorApp() {
             <div className="absolute top-2.5 left-3 flex items-center gap-2">
               <button
                 onClick={copyToClipboard}
-                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 transition-all text-xs opacity-70 hover:opacity-100 flex items-center gap-1"
+                className="p-1.5 rounded-full bg-white/5 hover:bg-white/15 transition-all text-xs opacity-70 hover:opacity-100 flex items-center gap-1"
                 title="Copy result"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -619,61 +619,61 @@ export default function CalculatorApp() {
             {/* Scientific Keypad Column (if enabled) */}
             {isScientific && (
               <div className="col-span-4 grid grid-cols-4 gap-2.5 pr-2 border-r border-white/10">
-                <button onClick={() => handleScientificFunc('sin')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>sin</button>
-                <button onClick={() => handleScientificFunc('cos')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>cos</button>
-                <button onClick={() => handleScientificFunc('tan')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>tan</button>
-                <button onClick={() => handleScientificFunc('sqrt')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>√</button>
+                <button onClick={() => handleScientificFunc('sin')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>sin</button>
+                <button onClick={() => handleScientificFunc('cos')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>cos</button>
+                <button onClick={() => handleScientificFunc('tan')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>tan</button>
+                <button onClick={() => handleScientificFunc('sqrt')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>√</button>
 
-                <button onClick={() => handleScientificFunc('asin')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>sin⁻¹</button>
-                <button onClick={() => handleScientificFunc('acos')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>cos⁻¹</button>
-                <button onClick={() => handleScientificFunc('atan')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>tan⁻¹</button>
-                <button onClick={() => handleScientificFunc('cbrt')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>∛</button>
+                <button onClick={() => handleScientificFunc('asin')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>sin⁻¹</button>
+                <button onClick={() => handleScientificFunc('acos')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>cos⁻¹</button>
+                <button onClick={() => handleScientificFunc('atan')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>tan⁻¹</button>
+                <button onClick={() => handleScientificFunc('cbrt')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>∛</button>
 
-                <button onClick={() => handleScientificFunc('log')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>log</button>
-                <button onClick={() => handleScientificFunc('ln')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>ln</button>
-                <button onClick={() => handleScientificFunc('square')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>x²</button>
-                <button onClick={() => handleScientificFunc('cube')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>x³</button>
+                <button onClick={() => handleScientificFunc('log')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>log</button>
+                <button onClick={() => handleScientificFunc('ln')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>ln</button>
+                <button onClick={() => handleScientificFunc('square')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>x²</button>
+                <button onClick={() => handleScientificFunc('cube')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>x³</button>
 
-                <button onClick={() => handleOperator('^')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>xʸ</button>
-                <button onClick={() => handleScientificFunc('inv')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>1/x</button>
-                <button onClick={() => handleScientificFunc('pi')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>π</button>
-                <button onClick={() => handleScientificFunc('e')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>e</button>
+                <button onClick={() => handleOperator('^')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>xʸ</button>
+                <button onClick={() => handleScientificFunc('inv')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>1/x</button>
+                <button onClick={() => handleScientificFunc('pi')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>π</button>
+                <button onClick={() => handleScientificFunc('e')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>e</button>
 
-                <button onClick={() => handleScientificFunc('factorial')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>n!</button>
-                <button onClick={() => handleScientificFunc('abs')} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>|x|</button>
-                <button onClick={memoryRecall} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>MR</button>
-                <button onClick={memoryAdd} className={`p-3 rounded-xl text-xs font-bold border transition-all ${themeStyles.btnSci}`}>M+</button>
+                <button onClick={() => handleScientificFunc('factorial')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>n!</button>
+                <button onClick={() => handleScientificFunc('abs')} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>|x|</button>
+                <button onClick={memoryRecall} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>MR</button>
+                <button onClick={memoryAdd} className={`p-3 rounded-full text-xs font-bold border transition-all ${themeStyles.btnSci}`}>M+</button>
               </div>
             )}
 
             {/* Standard Keypad */}
             <div className={`${isScientific ? 'col-span-6' : 'col-span-4'} grid grid-cols-4 gap-2.5`}>
-              <button onClick={clearAll} className={`p-3.5 rounded-2xl text-sm font-bold border transition-all ${themeStyles.btnAction}`}>AC</button>
-              <button onClick={clearEntry} className={`p-3.5 rounded-2xl text-sm font-bold border transition-all ${themeStyles.btnAction}`}>CE</button>
-              <button onClick={handleBackspace} className={`p-3.5 rounded-2xl text-sm font-bold border transition-all flex items-center justify-center ${themeStyles.btnAction}`} title="Backspace">
+              <button onClick={clearAll} className={`p-3.5 rounded-full text-sm font-bold border transition-all ${themeStyles.btnAction}`}>AC</button>
+              <button onClick={clearEntry} className={`p-3.5 rounded-full text-sm font-bold border transition-all ${themeStyles.btnAction}`}>CE</button>
+              <button onClick={handleBackspace} className={`p-3.5 rounded-full text-sm font-bold border transition-all flex items-center justify-center ${themeStyles.btnAction}`} title="Backspace">
                 <Delete className="w-4 h-4" />
               </button>
-              <button onClick={() => handleOperator('÷')} className={`p-3.5 rounded-2xl text-base font-bold border transition-all ${themeStyles.btnOp}`}>÷</button>
+              <button onClick={() => handleOperator('÷')} className={`p-3.5 rounded-full text-base font-bold border transition-all ${themeStyles.btnOp}`}>÷</button>
 
-              <button onClick={() => inputDigit('7')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>7</button>
-              <button onClick={() => inputDigit('8')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>8</button>
-              <button onClick={() => inputDigit('9')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>9</button>
-              <button onClick={() => handleOperator('×')} className={`p-3.5 rounded-2xl text-base font-bold border transition-all ${themeStyles.btnOp}`}>×</button>
+              <button onClick={() => inputDigit('7')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>7</button>
+              <button onClick={() => inputDigit('8')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>8</button>
+              <button onClick={() => inputDigit('9')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>9</button>
+              <button onClick={() => handleOperator('×')} className={`p-3.5 rounded-full text-base font-bold border transition-all ${themeStyles.btnOp}`}>×</button>
 
-              <button onClick={() => inputDigit('4')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>4</button>
-              <button onClick={() => inputDigit('5')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>5</button>
-              <button onClick={() => inputDigit('6')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>6</button>
-              <button onClick={() => handleOperator('-')} className={`p-3.5 rounded-2xl text-base font-bold border transition-all ${themeStyles.btnOp}`}>−</button>
+              <button onClick={() => inputDigit('4')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>4</button>
+              <button onClick={() => inputDigit('5')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>5</button>
+              <button onClick={() => inputDigit('6')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>6</button>
+              <button onClick={() => handleOperator('-')} className={`p-3.5 rounded-full text-base font-bold border transition-all ${themeStyles.btnOp}`}>−</button>
 
-              <button onClick={() => inputDigit('1')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>1</button>
-              <button onClick={() => inputDigit('2')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>2</button>
-              <button onClick={() => inputDigit('3')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>3</button>
-              <button onClick={() => handleOperator('+')} className={`p-3.5 rounded-2xl text-base font-bold border transition-all ${themeStyles.btnOp}`}>+</button>
+              <button onClick={() => inputDigit('1')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>1</button>
+              <button onClick={() => inputDigit('2')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>2</button>
+              <button onClick={() => inputDigit('3')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>3</button>
+              <button onClick={() => handleOperator('+')} className={`p-3.5 rounded-full text-base font-bold border transition-all ${themeStyles.btnOp}`}>+</button>
 
-              <button onClick={() => handleScientificFunc('negate')} className={`p-3.5 rounded-2xl text-sm font-bold border transition-all ${themeStyles.btnNum}`}>±</button>
-              <button onClick={() => inputDigit('0')} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>0</button>
-              <button onClick={inputDecimal} className={`p-3.5 rounded-2xl text-lg font-bold border transition-all ${themeStyles.btnNum}`}>.</button>
-              <button onClick={handleEquals} className={`p-3.5 rounded-2xl text-lg font-extrabold border transition-all ${themeStyles.btnOp}`}>=</button>
+              <button onClick={() => handleScientificFunc('negate')} className={`p-3.5 rounded-full text-sm font-bold border transition-all ${themeStyles.btnNum}`}>±</button>
+              <button onClick={() => inputDigit('0')} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>0</button>
+              <button onClick={inputDecimal} className={`p-3.5 rounded-full text-lg font-bold border transition-all ${themeStyles.btnNum}`}>.</button>
+              <button onClick={handleEquals} className={`p-3.5 rounded-full text-lg font-extrabold border transition-all ${themeStyles.btnOp}`}>=</button>
             </div>
 
           </div>
@@ -691,7 +691,7 @@ export default function CalculatorApp() {
               {history.length > 0 && (
                 <button
                   onClick={() => setHistory([])}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 text-xs font-semibold transition-all border border-rose-500/20"
+                  className="flex items-center gap-1 px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 text-xs font-semibold transition-all border border-rose-500/20"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Clear</span>
@@ -743,7 +743,7 @@ export default function CalculatorApp() {
               </div>
               <button
                 onClick={() => setHelpOpen(false)}
-                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 transition-all text-xs"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-xs"
               >
                 ✕
               </button>
@@ -753,12 +753,12 @@ export default function CalculatorApp() {
               <div>
                 <h4 className="font-bold text-amber-400 mb-1.5 uppercase tracking-wider text-[10px]">Keyboard Shortcuts</h4>
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="p-2 rounded-xl bg-white/5 flex justify-between"><span className="opacity-70">Numbers</span><code className="font-mono">0 - 9</code></div>
-                  <div className="p-2 rounded-xl bg-white/5 flex justify-between"><span className="opacity-70">Operators</span><code className="font-mono">+ - * /</code></div>
-                  <div className="p-2 rounded-xl bg-white/5 flex justify-between"><span className="opacity-70">Calculate</span><code className="font-mono">Enter / =</code></div>
-                  <div className="p-2 rounded-xl bg-white/5 flex justify-between"><span className="opacity-70">Delete</span><code className="font-mono">Backspace</code></div>
-                  <div className="p-2 rounded-xl bg-white/5 flex justify-between"><span className="opacity-70">Clear All</span><code className="font-mono">Esc</code></div>
-                  <div className="p-2 rounded-xl bg-white/5 flex justify-between"><span className="opacity-70">Decimal</span><code className="font-mono">.</code></div>
+                  <div className="p-2 rounded-2xl bg-white/5 flex justify-between"><span className="opacity-70">Numbers</span><code className="font-mono">0 - 9</code></div>
+                  <div className="p-2 rounded-2xl bg-white/5 flex justify-between"><span className="opacity-70">Operators</span><code className="font-mono">+ - * /</code></div>
+                  <div className="p-2 rounded-2xl bg-white/5 flex justify-between"><span className="opacity-70">Calculate</span><code className="font-mono">Enter / =</code></div>
+                  <div className="p-2 rounded-2xl bg-white/5 flex justify-between"><span className="opacity-70">Delete</span><code className="font-mono">Backspace</code></div>
+                  <div className="p-2 rounded-2xl bg-white/5 flex justify-between"><span className="opacity-70">Clear All</span><code className="font-mono">Esc</code></div>
+                  <div className="p-2 rounded-2xl bg-white/5 flex justify-between"><span className="opacity-70">Decimal</span><code className="font-mono">.</code></div>
                 </div>
               </div>
 
@@ -773,7 +773,7 @@ export default function CalculatorApp() {
             <div className="mt-6 pt-4 border-t border-white/10 flex justify-end">
               <button
                 onClick={() => setHelpOpen(false)}
-                className="px-4 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition-all"
+                className="px-5 py-2 rounded-full bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition-all shadow-md"
               >
                 Got it
               </button>
@@ -788,7 +788,7 @@ export default function CalculatorApp() {
           {/* Brand & Info */}
           <div className="space-y-3 md:col-span-1">
             <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-500 text-white shadow-md shadow-rose-500/20">
+              <div className="p-1.5 rounded-full bg-gradient-to-tr from-amber-500 to-rose-500 text-white shadow-md shadow-rose-500/20">
                 <CalcIcon className="w-4 h-4" />
               </div>
               <span className="font-bold text-sm tracking-tight">NexusCalc Pro</span>
@@ -801,7 +801,7 @@ export default function CalculatorApp() {
                 href="https://github.com" 
                 target="_blank" 
                 rel="noreferrer"
-                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
                 aria-label="GitHub Repository"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -812,7 +812,7 @@ export default function CalculatorApp() {
                 href="https://twitter.com" 
                 target="_blank" 
                 rel="noreferrer"
-                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
                 aria-label="X (Twitter)"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -823,7 +823,7 @@ export default function CalculatorApp() {
                 href="https://linkedin.com" 
                 target="_blank" 
                 rel="noreferrer"
-                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
                 aria-label="LinkedIn Profile"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
