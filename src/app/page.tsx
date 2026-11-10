@@ -16,7 +16,11 @@ import {
   RotateCcw,
   Calculator as CalcIcon,
   Atom,
-  Info
+  Info,
+  Heart,
+  Shield,
+  Cpu,
+  Layers
 } from 'lucide-react';
 
 interface HistoryItem {
@@ -45,6 +49,7 @@ export default function CalculatorApp() {
   const [copied, setCopied] = useState<boolean>(false);
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
   const [newResultFlash, setNewResultFlash] = useState<boolean>(false);
+  const [currentYear, setCurrentYear] = useState<number>(2025);
 
   // Flags
   const [waitingForOperand, setWaitingForOperand] = useState<boolean>(false);
@@ -82,8 +87,9 @@ export default function CalculatorApp() {
     }
   }, [soundEnabled]);
 
-  // Load history & theme from localStorage
+  // Load history & theme from localStorage & set year safely
   useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
     const savedHistory = localStorage.getItem('calc_history');
     if (savedHistory) {
       try {
@@ -253,7 +259,6 @@ export default function CalculatorApp() {
     if (isNaN(result) || !isFinite(result)) {
       finalResultStr = 'Error';
     } else {
-      // Round to prevent floating precision issues like 0.1 + 0.2 = 0.30000000000000004
       finalResultStr = String(parseFloat(result.toFixed(10)));
     }
 
@@ -270,7 +275,7 @@ export default function CalculatorApp() {
         result: finalResultStr,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
       };
-      setHistory(prev => [newItem, ...prev.slice(0, 49)]); // keep last 50
+      setHistory(prev => [newItem, ...prev.slice(0, 49)]);
     }
   }, [display, equation, waitingForOperand, calculateResult, playClickSound]);
 
@@ -395,7 +400,6 @@ export default function CalculatorApp() {
   const memoryClear = () => { playClickSound(400, 'sine'); setMemory(0); };
   const memoryRecall = () => { playClickSound(450, 'sine'); setDisplay(String(memory)); setWaitingForOperand(false); };
   const memoryAdd = () => { playClickSound(500, 'sine'); setMemory(memory + parseFloat(display)); };
-  const memorySub = () => { playClickSound(500, 'sine'); setMemory(memory - parseFloat(display)); };
 
   // Keyboard Event Listener
   useEffect(() => {
@@ -479,7 +483,7 @@ export default function CalculatorApp() {
   }[theme];
 
   return (
-    <div className={`min-h-screen w-full flex flex-col items-center justify-center p-2 sm:p-6 transition-colors duration-500 relative overflow-x-hidden ${themeStyles.bg}`}>
+    <div className={`min-h-screen w-full flex flex-col items-center justify-between p-2 sm:p-6 transition-colors duration-500 relative overflow-x-hidden ${themeStyles.bg}`}>
       {/* Background ambient lighting */}
       <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b ${themeStyles.accentGlow} blur-3xl pointer-events-none rounded-full`} />
 
@@ -493,7 +497,7 @@ export default function CalculatorApp() {
             <h1 className="text-xl font-bold tracking-tight flex items-center gap-1.5">
               NexusCalc <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium">Pro</span>
             </h1>
-            <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator & Scientific Studio</p>
+            <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator &amp; Scientific Studio</p>
           </div>
         </div>
 
@@ -550,7 +554,7 @@ export default function CalculatorApp() {
       </header>
 
       {/* Main Container with Calculator & History Drawer */}
-      <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 z-10">
+      <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 z-10 my-auto py-6">
         
         {/* Calculator Body */}
         <div className={`w-full ${isScientific ? 'max-w-2xl' : 'max-w-md'} rounded-3xl p-5 sm:p-6 border transition-all duration-300 ${themeStyles.panel}`}>
@@ -754,7 +758,7 @@ export default function CalculatorApp() {
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <Info className="w-5 h-5 text-amber-500" />
-                <h3 className="font-bold text-base">Calculator Help & Shortcuts</h3>
+                <h3 className="font-bold text-base">Calculator Help &amp; Shortcuts</h3>
               </div>
               <button
                 onClick={() => setHelpOpen(false)}
@@ -797,9 +801,116 @@ export default function CalculatorApp() {
         </div>
       )}
 
-      {/* Footer */}
-      <footer className="mt-8 text-center text-xs opacity-40 z-10">
-        NexusCalc Pro • Next.js 15 App Router & Tailwind CSS
+      {/* Modern Professional Footer */}
+      <footer className="w-full max-w-5xl mt-12 pt-8 pb-6 border-t border-white/10 z-10 text-xs text-left">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          {/* Brand & Info */}
+          <div className="space-y-3 md:col-span-1">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-500 text-white shadow-md shadow-rose-500/20">
+                <CalcIcon className="w-4 h-4" />
+              </div>
+              <span className="font-bold text-sm tracking-tight">NexusCalc Pro</span>
+            </div>
+            <p className="opacity-60 text-[11px] leading-relaxed">
+              High-performance scientific calculator built with Next.js 15, React 19, and Tailwind CSS. Precision math in your browser.
+            </p>
+            <div className="flex items-center gap-3 pt-1">
+              <a 
+                href="https://github.com" 
+                target="_blank" 
+                rel="noreferrer"
+                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                aria-label="GitHub Repository"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+              </a>
+              <a 
+                href="https://twitter.com" 
+                target="_blank" 
+                rel="noreferrer"
+                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                aria-label="X (Twitter)"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a 
+                href="https://linkedin.com" 
+                target="_blank" 
+                rel="noreferrer"
+                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                aria-label="LinkedIn Profile"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Navigation Links */}
+          <div className="space-y-2.5">
+            <h4 className="font-bold text-[10px] tracking-widest uppercase opacity-80 flex items-center gap-1.5 text-amber-400">
+              <Layers className="w-3.5 h-3.5" /> Modules
+            </h4>
+            <ul className="space-y-1.5 opacity-70 text-[11px]">
+              <li><button onClick={() => setIsScientific(false)} className="hover:opacity-100 transition-opacity">Standard Calculator</button></li>
+              <li><button onClick={() => setIsScientific(true)} className="hover:opacity-100 transition-opacity">Scientific Calculator</button></li>
+              <li><button onClick={() => setHistoryOpen(true)} className="hover:opacity-100 transition-opacity">Calculation History</button></li>
+              <li><button onClick={() => setHelpOpen(true)} className="hover:opacity-100 transition-opacity">Keyboard Shortcuts</button></li>
+            </ul>
+          </div>
+
+          {/* Technology Stack */}
+          <div className="space-y-2.5">
+            <h4 className="font-bold text-[10px] tracking-widest uppercase opacity-80 flex items-center gap-1.5 text-amber-400">
+              <Cpu className="w-3.5 h-3.5" /> Tech Stack
+            </h4>
+            <ul className="space-y-1.5 opacity-70 text-[11px]">
+              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Next.js 15 App Router</li>
+              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> React 19 &amp; TypeScript</li>
+              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Tailwind CSS v4</li>
+              <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Web Audio API &amp; Lucide Icons</li>
+            </ul>
+          </div>
+
+          {/* Legal & Status */}
+          <div className="space-y-2.5">
+            <h4 className="font-bold text-[10px] tracking-widest uppercase opacity-80 flex items-center gap-1.5 text-amber-400">
+              <Shield className="w-3.5 h-3.5" /> System Status
+            </h4>
+            <div className="p-3 rounded-2xl bg-white/5 border border-white/5 space-y-2">
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="opacity-70 flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" /> Engine</span>
+                <span className="text-emerald-400 font-bold">Operational</span>
+              </div>
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="opacity-70">Sound Engine</span>
+                <span className={soundEnabled ? 'text-cyan-400 font-semibold' : 'opacity-50'}>{soundEnabled ? 'Active' : 'Muted'}</span>
+              </div>
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="opacity-70">Theme</span>
+                <span className="capitalize font-semibold text-amber-400">{theme}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom copyright & credits bar */}
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] opacity-60">
+          <p>© {currentYear} NexusCalc Pro. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1">
+              Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500 inline" /> for Next.js 15
+            </span>
+            <span>•</span>
+            <span className="font-mono">v2.4.0-stable</span>
+          </div>
+        </div>
       </footer>
     </div>
   );
