@@ -475,9 +475,9 @@ export default function CalculatorApp() {
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight flex items-center gap-1.5">
-              NexusCalc <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium">Pro</span>
+              Calcula <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium">Pro</span>
             </h1>
-            <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator &amp; Scientific Studio</p>
+            <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js Calculator &amp; Scientific Studio</p>
           </div>
         </div>
 
@@ -765,7 +765,7 @@ export default function CalculatorApp() {
               <div>
                 <h4 className="font-bold text-amber-400 mb-1.5 uppercase tracking-wider text-[10px]">Features</h4>
                 <p className="leading-relaxed opacity-80">
-                  NexusCalc Pro features a fully integrated scientific mode, angle mode toggle (DEG/RAD), audio feedback clicks, persistent history drawer, and dark/light glassmorphism themes.
+                  Calcula Pro features a fully integrated scientific mode, angle mode toggle (DEG/RAD), audio feedback clicks, persistent history drawer, and dark/light glassmorphism themes.
                 </p>
               </div>
             </div>
@@ -791,7 +791,7 @@ export default function CalculatorApp() {
               <div className="p-1.5 rounded-full bg-gradient-to-tr from-amber-500 to-rose-500 text-white shadow-md shadow-rose-500/20">
                 <CalcIcon className="w-4 h-4" />
               </div>
-              <span className="font-bold text-sm tracking-tight">NexusCalc Pro</span>
+              <span className="font-bold text-sm tracking-tight">Calcula Pro</span>
             </div>
             <p className="opacity-60 text-[11px] leading-relaxed">
               High-performance scientific calculator built with Next.js 15, React 19, and Tailwind CSS. Precision math in your browser.
@@ -883,7 +883,7 @@ export default function CalculatorApp() {
 
         {/* Bottom copyright & credits bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] opacity-60">
-          <p>© {currentYear} NexusCalc Pro. All rights reserved.</p>
+          <p>© {currentYear} Calcula Pro. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               crafted by Jaden with <Heart className="w-3 h-3 text-rose-500 fill-rose-500 inline" />
