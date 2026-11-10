@@ -495,7 +495,7 @@ export default function CalculatorApp() {
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight flex items-center gap-1.5">
-              NexusCalc <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium">Pro</span>
+              NexusCalc
             </h1>
             <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator &amp; Scientific Studio</p>
           </div>
