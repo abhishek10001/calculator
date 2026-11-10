@@ -484,7 +484,7 @@ export default function CalculatorApp() {
         {/* Controls: Theme, Sound, History, Help */}
         <div className="flex items-center gap-2">
           {/* Theme selector (Dark & Light only) */}
-          <div className="flex bg-black/20 backdrop-blur-md rounded-full p-1 border border-white/10">
+          <div className="flex bg-black/20 backdrop-blur-md rounded-full p-1 border border-white/15">
             {(['dark', 'light'] as ThemeMode[]).map((t) => (
               <button
                 key={t}
@@ -503,7 +503,7 @@ export default function CalculatorApp() {
           {/* Sound Toggle */}
           <button
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className="p-2.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-sm"
+            className="p-2.5 rounded-full bg-black/20 backdrop-blur-md border border-white/15 hover:bg-white/15 transition-all text-sm flex items-center justify-center"
             title={soundEnabled ? 'Mute sound' : 'Enable sound'}
           >
             {soundEnabled ? <Volume2 className="w-4 h-4 text-emerald-400" /> : <VolumeX className="w-4 h-4 opacity-50" />}
@@ -512,7 +512,7 @@ export default function CalculatorApp() {
           {/* Help Modal Toggle */}
           <button
             onClick={() => setHelpOpen(true)}
-            className="p-2.5 rounded-full bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-sm hidden sm:block"
+            className="p-2.5 rounded-full bg-black/20 backdrop-blur-md border border-white/15 hover:bg-white/15 transition-all text-sm hidden sm:flex items-center justify-center"
             title="Keyboard shortcuts & Help"
           >
             <HelpCircle className="w-4 h-4" />
@@ -521,7 +521,7 @@ export default function CalculatorApp() {
           {/* History Drawer Toggle */}
           <button
             onClick={() => setHistoryOpen(!historyOpen)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/15 transition-all text-xs font-medium"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-black/20 backdrop-blur-md border border-white/15 hover:bg-white/15 transition-all text-xs font-medium"
           >
             <History className="w-4 h-4" />
             <span className="hidden md:inline">History</span>
@@ -565,7 +565,7 @@ export default function CalculatorApp() {
 
             {/* Angle Mode Toggle (DEG / RAD) */}
             {isScientific && (
-              <div className="flex bg-black/30 rounded-full p-0.5 border border-white/10">
+              <div className="flex bg-black/30 rounded-full p-0.5 border border-white/15">
                 <button
                   onClick={() => setAngleMode('DEG')}
                   className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
@@ -613,7 +613,7 @@ export default function CalculatorApp() {
             </div>
           </div>
 
-          {/* Keypad Grid: Standard + Scientific */}
+          {/* Keypad Grid: Standard + Scientific (all buttons rounded-full) */}
           <div className={`grid gap-2.5 ${isScientific ? 'grid-cols-10' : 'grid-cols-4'}`}>
             
             {/* Scientific Keypad Column (if enabled) */}
@@ -743,7 +743,7 @@ export default function CalculatorApp() {
               </div>
               <button
                 onClick={() => setHelpOpen(false)}
-                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-xs"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-xs flex items-center justify-center"
               >
                 ✕
               </button>
@@ -801,7 +801,7 @@ export default function CalculatorApp() {
                 href="https://github.com" 
                 target="_blank" 
                 rel="noreferrer"
-                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100 flex items-center justify-center"
                 aria-label="GitHub Repository"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -812,7 +812,7 @@ export default function CalculatorApp() {
                 href="https://twitter.com" 
                 target="_blank" 
                 rel="noreferrer"
-                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100 flex items-center justify-center"
                 aria-label="X (Twitter)"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -823,7 +823,7 @@ export default function CalculatorApp() {
                 href="https://linkedin.com" 
                 target="_blank" 
                 rel="noreferrer"
-                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/15 transition-all text-opacity-70 hover:text-opacity-100 flex items-center justify-center"
                 aria-label="LinkedIn Profile"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
