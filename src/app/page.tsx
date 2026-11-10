@@ -17,15 +17,10 @@ import {
   Calculator as CalcIcon,
   Atom,
   Info,
-  Code,
   Heart,
-  Globe,
-  FileText,
   Shield,
-  Mail,
   Cpu,
-  Layers,
-  ExternalLink
+  Layers
 } from 'lucide-react';
 
 interface HistoryItem {
@@ -54,6 +49,7 @@ export default function CalculatorApp() {
   const [copied, setCopied] = useState<boolean>(false);
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
   const [newResultFlash, setNewResultFlash] = useState<boolean>(false);
+  const [currentYear, setCurrentYear] = useState<number>(2025);
 
   // Flags
   const [waitingForOperand, setWaitingForOperand] = useState<boolean>(false);
@@ -91,8 +87,9 @@ export default function CalculatorApp() {
     }
   }, [soundEnabled]);
 
-  // Load history & theme from localStorage
+  // Load history & theme from localStorage & set year safely
   useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
     const savedHistory = localStorage.getItem('calc_history');
     if (savedHistory) {
       try {
@@ -262,7 +259,6 @@ export default function CalculatorApp() {
     if (isNaN(result) || !isFinite(result)) {
       finalResultStr = 'Error';
     } else {
-      // Round to prevent floating precision issues like 0.1 + 0.2 = 0.30000000000000004
       finalResultStr = String(parseFloat(result.toFixed(10)));
     }
 
@@ -279,7 +275,7 @@ export default function CalculatorApp() {
         result: finalResultStr,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
       };
-      setHistory(prev => [newItem, ...prev.slice(0, 49)]); // keep last 50
+      setHistory(prev => [newItem, ...prev.slice(0, 49)]);
     }
   }, [display, equation, waitingForOperand, calculateResult, playClickSound]);
 
@@ -404,7 +400,6 @@ export default function CalculatorApp() {
   const memoryClear = () => { playClickSound(400, 'sine'); setMemory(0); };
   const memoryRecall = () => { playClickSound(450, 'sine'); setDisplay(String(memory)); setWaitingForOperand(false); };
   const memoryAdd = () => { playClickSound(500, 'sine'); setMemory(memory + parseFloat(display)); };
-  const memorySub = () => { playClickSound(500, 'sine'); setMemory(memory - parseFloat(display)); };
 
   // Keyboard Event Listener
   useEffect(() => {
@@ -502,7 +497,7 @@ export default function CalculatorApp() {
             <h1 className="text-xl font-bold tracking-tight flex items-center gap-1.5">
               NexusCalc <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium">Pro</span>
             </h1>
-            <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator & Scientific Studio</p>
+            <p className="text-xs opacity-60 hidden sm:block">Advanced Next.js 15 Calculator &amp; Scientific Studio</p>
           </div>
         </div>
 
@@ -863,10 +858,10 @@ export default function CalculatorApp() {
               <Layers className="w-3.5 h-3.5" /> Modules
             </h4>
             <ul className="space-y-1.5 opacity-70 text-[11px]">
-              <li><button onClick={() => setIsScientific(false)} className="hover:opacity-150 transition-opacity">Standard Calculator</button></li>
-              <li><button onClick={() => setIsScientific(true)} className="hover:opacity-150 transition-opacity">Scientific Calculator</button></li>
-              <li><button onClick={() => setHistoryOpen(true)} className="hover:opacity-150 transition-opacity">Calculation History</button></li>
-              <li><button onClick={() => setHelpOpen(true)} className="hover:opacity-150 transition-opacity">Keyboard Shortcuts</button></li>
+              <li><button onClick={() => setIsScientific(false)} className="hover:opacity-100 transition-opacity">Standard Calculator</button></li>
+              <li><button onClick={() => setIsScientific(true)} className="hover:opacity-100 transition-opacity">Scientific Calculator</button></li>
+              <li><button onClick={() => setHistoryOpen(true)} className="hover:opacity-100 transition-opacity">Calculation History</button></li>
+              <li><button onClick={() => setHelpOpen(true)} className="hover:opacity-100 transition-opacity">Keyboard Shortcuts</button></li>
             </ul>
           </div>
 
@@ -907,7 +902,7 @@ export default function CalculatorApp() {
 
         {/* Bottom copyright & credits bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] opacity-60">
-          <p>© {new Date().getFullYear()} NexusCalc Pro. All rights reserved.</p>
+          <p>© {currentYear} NexusCalc Pro. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               Crafted with <Heart className="w-3 h-3 text-rose-500 fill-rose-500 inline" /> for Next.js 15
